@@ -19,4 +19,4 @@ services:
       - HOST=web-crawler-scheduler
       - ROOT_URL=${ROOT_URL}
     volumes:
-      - ./data:/src/data
+      - ./web-crawler-scheduler/data:/src/data

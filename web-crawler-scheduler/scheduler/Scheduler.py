@@ -24,7 +24,7 @@ class Scheduler():
                 continue
             else:
                 # Add the url to the queue and the set
-                self.queue.put(item=url)
+                self.queue.put(url)
                 self.discovered.add(url)
                 updated_urls.append(url)
         # Return the urls that were added into the queue
