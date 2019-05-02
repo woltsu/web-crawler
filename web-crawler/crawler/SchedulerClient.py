@@ -16,9 +16,9 @@ class SchedulerClient():
     def sendUrls(self, urls):
         self.open_connection()
 
-        # Send urls to the scheduler server. Server expects the first letter
+        # Send urls to the scheduler server. Server expects the first character
         # to be the "method", e.g. P = "push" or F = "fetch", and the
-        # last 4 letters to be "####".
+        # last 4 characters to be "####".
         self.sock.sendall(b"P" + b",".join(urls) + b"####")
 
         self.close_connection()
@@ -33,7 +33,7 @@ class SchedulerClient():
         # Begin data exchange
         while True:
             # Get sockets
-            readable, writable, exceptional = select.select([self.sock], [self.sock], [self.sock])
+            readable, writable, _ = select.select([self.sock], [self.sock], [self.sock])
             flag = False
 
             # If message hasn't been completely sent yet
