@@ -7,17 +7,15 @@ fileLock = threading.Lock()
 
 # Update result file with the received links
 def update_file(data):
-    # Acquire lock
     global fileLock
     fileLock.acquire()
     print("updating file...")
     
-    # Update file
+    # Update file with the given data
     f = open("./data/data.txt", "a+")
     f.write(data)
     f.close()
 
-    # Release lock
     fileLock.release()
 
 def handle_connection(data, conn, scheduler):
@@ -43,7 +41,6 @@ def handle_connection(data, conn, scheduler):
             # the next target url from the scheduler
             elif method == "F":
                 conn.send(scheduler.get_next().encode() + b"####")
-        # Receive more data if the last characters weren't "####"
         data = conn.recv(1024)  
 
 class SchedulerServer():

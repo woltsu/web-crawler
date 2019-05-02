@@ -15,10 +15,8 @@ class WebCrawler():
         self.schedulerClient = SchedulerClient.SchedulerClient()
 
     def crawl(self):
-        # Crawling loop
         while True:
             try:
-                # Get url to crawl
                 url = self.schedulerClient.getUrl()
 
                 # If scheduler server didn't return an url, then
