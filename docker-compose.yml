@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  web-crawler:
+    build: './web-crawler'
+    image: web-crawler
+    depends_on:
+      - web-crawler-scheduler
+    environment:
+      - HOST=web-crawler-scheduler
+
+  web-crawler-scheduler:
+    build: ./web-crawler-scheduler
+    image: web-crawler-scheduler
+    container_name: web-crawler-scheduler
+    ports:
+      - 65432:65432
+    environment:
+      - HOST=web-crawler-scheduler
+      - ROOT_URL=${ROOT_URL}
+    volumes:
+      - ./data:/src/data
