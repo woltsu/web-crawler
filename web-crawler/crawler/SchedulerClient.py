@@ -58,7 +58,7 @@ class SchedulerClient():
         return res
 
     def open_connection(self):
-        # Setup IPv4 TCP socket
+        # Setup a non-blocking IPv4 TCP socket
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.connect_ex(self.server_addr)
         self.sock.setblocking(0)
