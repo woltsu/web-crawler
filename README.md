@@ -20,7 +20,7 @@ Navigate to the project root and run the following command:
 ROOT_URL=insert_root_url_here docker-compose up --build --scale web-crawler=2
 ```
 
-This starts the web-crawler-scheduler and two web-crawlers. The scale number can be anything, but keep in mind to not overload the target sever.
+This starts the web-crawler-scheduler and two web-crawlers. The scale number can be anything, but keep in mind to not overload the target server.
 
 OR
 
