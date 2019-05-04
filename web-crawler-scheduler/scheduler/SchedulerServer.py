@@ -43,7 +43,7 @@ def handle_connection(data, conn, scheduler):
                 next_url = scheduler.get_next()
                 # If scheduler returned None, then there hasn't
                 # been any new urls in 10 seconds. Exit program.
-                if not next_url:
+                if next_url == None:
                     conn.send(b"####")
                     os._exit(0)
                 else:
