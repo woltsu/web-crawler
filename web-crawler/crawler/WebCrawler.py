@@ -20,7 +20,7 @@ class WebCrawler():
         consecutive_errors = 0
         while True:
             try:
-                url = self.schedulerClient.getUrl()
+                url = self.schedulerClient.get_url()
 
                 # If scheduler server didn't return an url, then
                 # try again after 1 second
@@ -53,7 +53,7 @@ class WebCrawler():
                             urls.append((url + link).encode())
 
                 # Send urls to the scheduler server
-                self.schedulerClient.sendUrls(urls)
+                self.schedulerClient.send_urls(urls)
                 consecutive_errors = 0
 
                 # Sleep 1 second in order to not overload 

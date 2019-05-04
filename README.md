@@ -17,7 +17,7 @@ OR
 Navigate to the project root and run the following command:
 
 ```bash
-ROOT_URL=X docker-compose up --build --scale web-crawler=1
+ROOT_URL=insert_root_url_here docker-compose up --build --scale web-crawler=1
 ```
 
 OR
@@ -31,7 +31,7 @@ pipenv install
 and then in the _web-crawler-scheduler_ directory run
 
 ```bash
-pipenv run python main.py ROOT_URL
+pipenv run python main.py insert_root_url_here
 ```
 
 and in the _web-crawler_ directory run

@@ -9,7 +9,7 @@ class SchedulerClient():
         PORT = 65432
         self.server_addr = (HOST, PORT)
 
-    def sendUrls(self, urls):
+    def send_urls(self, urls):
         self.open_connection()
 
         # Send urls to the scheduler server. Server expects the first character
@@ -19,7 +19,7 @@ class SchedulerClient():
 
         self.close_connection()
 
-    def getUrl(self):
+    def get_url(self):
         self.open_connection()
         message = b"F####"
         res = b""
