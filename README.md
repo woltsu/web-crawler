@@ -42,7 +42,7 @@ and in the _web-crawler_ directory run
 pipenv run python main.py
 ```
 
-All urls that the crawler finds will be stored into _/web-crawler-scheduler/data/data.txt_
+**All urls that the crawler finds will be stored into _/web-crawler-scheduler/data/data.txt_**
 
 ### Disclaimer
 Please notice that this project was created just to practise network programming with Python. If you choose to test this app, be sure to not overload the servers you are targeting. Don't start too many crawlers at once and don't remove the `time.sleep(1)` that slows down the loop in `WebCrawler.py` file. I'm not liable for any misuse of this application.
