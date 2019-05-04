@@ -15,7 +15,6 @@ class Scheduler():
         try:
             return self.queue.get(timeout=self.QUEUE_TIMEOUT)
         except:
-            print(f"Scheduler hasn't encountered new urls in {self.QUEUE_TIMEOUT} seconds, exiting...")
             return None
 
     def feed_urls(self, urls):

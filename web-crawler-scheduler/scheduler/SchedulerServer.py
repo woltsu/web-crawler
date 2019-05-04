@@ -45,6 +45,7 @@ def handle_connection(data, conn, scheduler):
                 # been any new urls in 10 seconds. Exit program.
                 if next_url == None:
                     conn.send(b"####")
+                    print(f"Scheduler hasn't encountered new urls in {scheduler.QUEUE_TIMEOUT} seconds, exiting...")
                     os._exit(0)
                 else:
                     conn.send(next_url.encode() + b"####")
