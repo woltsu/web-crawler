@@ -10,13 +10,13 @@ services:
       - HOST=web-crawler-scheduler
 
   web-crawler-scheduler:
-    build: ./web-crawler-scheduler
-    image: web-crawler-scheduler
-    container_name: web-crawler-scheduler
+    build: 
+      context: ./web-crawler-scheduler
+      args:
+        - ROOT_URL=${ROOT_URL}
     ports:
       - 65432:65432
     environment:
       - HOST=web-crawler-scheduler
-      - ROOT_URL=${ROOT_URL}
     volumes:
       - ./web-crawler-scheduler/data:/src/data

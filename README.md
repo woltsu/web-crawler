@@ -15,19 +15,26 @@ OR
 ### Installing
 
 Navigate to the project root and run the following command:
+
 ```bash
 ROOT_URL=X docker-compose up --build --scale web-crawler=1
 ```
 
 OR
 
-Create a .env file to _web-crawler-scheduler_ directory and add a variable `ROOT_URL` into the file. Then open two seperate terminals and navigate to both _web-crawler-scheduler_ and _web-crawler_ directories, where in both run first the following command:
+Open two seperate terminals and navigate to both _web-crawler-scheduler_ and _web-crawler_ directories, where in both run first the following command:
 
 ```bash
 pipenv install
 ```
 
-and then
+and then in the _web-crawler-scheduler_ directory run
+
+```bash
+pipenv run python main.py ROOT_URL
+```
+
+and in the _web-crawler_ directory run
 
 ```bash
 pipenv run python main.py

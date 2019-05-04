@@ -1,5 +1,9 @@
 FROM python:3.7-alpine
 
+ARG ROOT_URL
+
+ENV ROOT_URL=$ROOT_URL
+
 EXPOSE 65432
 
 WORKDIR /src
@@ -12,4 +16,4 @@ RUN pip install pipenv && \
 
 COPY . .
 
-CMD python3 main.py
+CMD python3 main.py $ROOT_URL

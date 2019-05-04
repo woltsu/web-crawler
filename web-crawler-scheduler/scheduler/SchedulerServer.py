@@ -1,11 +1,11 @@
-import socket, types, os, threading
+import socket, types, os, threading, sys
 from scheduler import Scheduler
 
 # Global lock that is used when different
 # threads write into the result file
 fileLock = threading.Lock()
 
-# Update result file with the received links
+# Update the result file with the received links
 def update_file(data):
     global fileLock
     fileLock.acquire()
@@ -40,7 +40,14 @@ def handle_connection(data, conn, scheduler):
             # If the method is fetch, then send the connection
             # the next target url from the scheduler
             elif method == "F":
-                conn.send(scheduler.get_next().encode() + b"####")
+                next_url = scheduler.get_next()
+                # If scheduler returned None, then there hasn't
+                # been any new urls in 10 seconds. Exit program.
+                if not next_url:
+                    conn.send(b"####")
+                    os._exit(0)
+                else:
+                    conn.send(next_url.encode() + b"####")
         data = conn.recv(1024)  
 
 class SchedulerServer():
@@ -60,11 +67,7 @@ class SchedulerServer():
         self.socket.setblocking(1)
 
         # Initialize scheduler
-        if "ROOT_URL" in os.environ:
-            self.scheduler = Scheduler.Scheduler(os.environ["ROOT_URL"])
-        else:
-            print("Please provide a root url.")
-            exit(0)
+        self.scheduler = Scheduler.Scheduler(sys.argv[1])
 
     def start(self):
         # Start server

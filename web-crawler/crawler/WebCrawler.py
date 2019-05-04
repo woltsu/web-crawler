@@ -10,18 +10,21 @@ class WebCrawler():
     # Regex for path urls (/a/b)
     URL_PATH_REG = "^(/[a-z0-9-._~%!$&'()*+,;=@]+(/[a-z0-9-._~%!$&'()*+,;=:@]+)*/?|/)"
 
+    CONSECUTIVE_ERRORS_LIMIT = 10
+
     def __init__(self):
         self.parser = CrawlerHTMLParser.CrawlerHTMLParser()
         self.schedulerClient = SchedulerClient.SchedulerClient()
 
     def crawl(self):
+        consecutive_errors = 0
         while True:
             try:
                 url = self.schedulerClient.getUrl()
 
                 # If scheduler server didn't return an url, then
                 # try again after 1 second
-                if url == None:
+                if not url:
                     time.sleep(1)
                     continue
 
@@ -51,15 +54,19 @@ class WebCrawler():
 
                 # Send urls to the scheduler server
                 self.schedulerClient.sendUrls(urls)
+                consecutive_errors = 0
 
                 # Sleep 1 second in order to not overload 
                 # the target who is crawled
                 time.sleep(1)
-            
+
             except Exception as e:
-                # Connection to server lost
+                # Connection to the server failed
                 if e.args and e.args[0] == errno.EPIPE:
                     self.schedulerClient.close_connection()
-                    print("connection to the server lost")
-                    exit(0)
-                print("error fetching page", e)
+                    print("Connection to the server failed")
+                consecutive_errors += 1
+                if consecutive_errors > self.CONSECUTIVE_ERRORS_LIMIT:
+                    print(f'Encountered {consecutive_errors} consecutive errors, aborting...')
+                    exit(1)
+                print("error: ", e)                

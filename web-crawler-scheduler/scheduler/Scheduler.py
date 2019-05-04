@@ -1,6 +1,8 @@
-import queue
+import queue, os
 
 class Scheduler():
+    QUEUE_TIMEOUT = 10
+
     def __init__(self, root_url):
         # A set is used to effectively check whether an
         # url has been crawled before or not
@@ -10,7 +12,11 @@ class Scheduler():
         self.queue.put(root_url)
 
     def get_next(self):
-        return self.queue.get()
+        try:
+            return self.queue.get(timeout=self.QUEUE_TIMEOUT)
+        except:
+            print(f"Scheduler hasn't encountered new urls in {self.QUEUE_TIMEOUT} seconds, exiting...")
+            return None
 
     def feed_urls(self, urls):
         updated_urls = []
